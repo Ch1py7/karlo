@@ -1,0 +1,24 @@
+{
+  "name": "karlo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lint": "biome check . --apply",
+    "format": "biome format --write .",
+    "lint:check": "biome check .",
+    "format:check": "biome format ."
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "biomejs/biome",
+      "esbuild"
+    ]
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4"
+  }
+}
