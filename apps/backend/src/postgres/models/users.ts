@@ -20,6 +20,7 @@ export const userClient = sequelize.define<UserInstance, UserAttributes>(
 		id: {
 			type: DataTypes.UUIDV4,
 			primaryKey: true,
+      unique: true
 		},
 		name: {
 			type: DataTypes.TEXT,
@@ -41,7 +42,6 @@ export const userClient = sequelize.define<UserInstance, UserAttributes>(
 		is_validated: {
 			type: DataTypes.BOOLEAN,
 			allowNull: false,
-			defaultValue: false,
 		},
 		validation_code: {
 			type: DataTypes.STRING,

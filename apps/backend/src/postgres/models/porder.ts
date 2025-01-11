@@ -20,6 +20,7 @@ export const pOrderClient = sequelize.define<POrderInstance, POrderAttributes>(
     id: {
       type: DataTypes.UUIDV4,
       primaryKey: true,
+      unique: true
     },
     business_id: {
       type: DataTypes.UUIDV4,

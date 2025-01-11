@@ -15,6 +15,7 @@ export const businessClient = sequelize.define<BusinessInstance, BusinessAttribu
 		id: {
 			type: DataTypes.UUIDV4,
 			primaryKey: true,
+      unique: true
 		},
 		name: {
 			type: DataTypes.TEXT,
