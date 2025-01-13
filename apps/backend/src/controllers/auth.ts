@@ -18,8 +18,8 @@ router.post(
 			.isString()
 			.withMessage('name should be a string')
 			.bail()
-			.isLength({ min: 3 })
-			.withMessage('name should be at least 3 characters long')
+			.isLength({ min: 3, max: 20 })
+			.withMessage('name must be between 3 and 20 characters')
 			.bail(),
 		body('password')
 			.notEmpty()
@@ -28,8 +28,8 @@ router.post(
 			.isString()
 			.withMessage('password should be a string')
 			.bail()
-			.isLength({ min: 8 })
-			.withMessage('password should be at least 8 characters long')
+			.isLength({ min: 8, max: 20 })
+			.withMessage('Password must be between 8 and 20 characters')
 			.bail(),
 		body('email')
 			.notEmpty()

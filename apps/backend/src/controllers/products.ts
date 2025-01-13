@@ -12,15 +12,15 @@ router.get(
 	'/products',
 	query('search'),
 	query('business_id')
-  .notEmpty()
-  .withMessage("business id can't be empty")
-  .bail()
-  .isString()
-  .withMessage('business id should be a string')
-  .bail()
-  .isUUID(4)
-  .withMessage('business id should be a valid uuid')
-  .bail(),
+		.notEmpty()
+		.withMessage("business id can't be empty")
+		.bail()
+		.isString()
+		.withMessage('business id should be a string')
+		.bail()
+		.isUUID(4)
+		.withMessage('business id should be a valid uuid')
+		.bail(),
 	async (req: express.Request, res: express.Response) => {
 		try {
 			const errors = validationResult(req)
@@ -30,7 +30,7 @@ router.get(
 				return res.status(400).json(error)
 			}
 
-			const { search, business_id } = req.query as { search: string, business_id: string }
+			const { search, business_id } = req.query as { search: string; business_id: string }
 			const product = await get({ business_id, search })
 
 			res.status(200).send(product)
@@ -154,6 +154,9 @@ router.post(
 			.bail()
 			.isString()
 			.withMessage('name should be a string')
+			.bail()
+			.isLength({ min: 3, max: 20 })
+			.withMessage('name should be at least 3 characters long and less than 20 characteres long')
 			.bail(),
 		body('price')
 			.notEmpty()
@@ -162,8 +165,8 @@ router.post(
 			.isNumeric()
 			.withMessage('price should be a number')
 			.bail()
-			.isFloat({ min: 0 })
-			.withMessage('price should be a positive number')
+			.isFloat({ min: 0, max: 5000 })
+			.withMessage('price must be between 3 and 5,000')
 			.bail(),
 		body('stock')
 			.notEmpty()
@@ -172,8 +175,8 @@ router.post(
 			.isNumeric()
 			.withMessage('stock should be a number')
 			.bail()
-			.isInt({ min: 1 })
-			.withMessage('stock should be a positive integer and greater than 0')
+			.isInt({ min: 1, max: 500 })
+			.withMessage('stock must be between 1 and 500 characters')
 			.bail(),
 		body('business_id')
 			.notEmpty()

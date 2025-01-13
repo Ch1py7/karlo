@@ -107,6 +107,9 @@ router.post(
 			.bail()
 			.isString()
 			.withMessage('name should be a string')
+			.bail()
+			.isLength({ min: 3, max: 20 })
+			.withMessage('name must be between 3 and 20 characters')
 			.bail(),
 		body('id')
 			.notEmpty()
