@@ -31,7 +31,7 @@ export const CustomerOrders: React.FC<CustomerOrders> = ({ setAlert }): React.Re
 			token
 		)
 		if (status === 200) {
-			setOrders(data)
+			setOrders(data.reverse())
 		}
 	}, [id, role_id, token])
 

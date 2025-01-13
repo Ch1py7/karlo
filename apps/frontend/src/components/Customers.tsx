@@ -53,9 +53,11 @@ export const Customers: React.FC = (): React.ReactNode => {
 							</div>
 						</div>
 						<div className="space-y-2">
-							<div className="flex items-center text-gray-600">
+							<div className="flex items-center text-gray-600 truncate w-full">
 								<Mail className="h-4 w-4 mr-2" />
-								<span className="text-sm">{customer.email}</span>
+								<span className="text-sm text-ellipsis overflow-hidden whitespace-nowrap">
+									{customer.email}
+								</span>
 							</div>
 						</div>
 					</div>

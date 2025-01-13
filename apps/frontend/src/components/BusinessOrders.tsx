@@ -22,7 +22,7 @@ export const BusinessOrders: React.FC = (): React.ReactNode => {
 			token
 		)
 		if (status === 200) {
-			setOrders(data)
+			setOrders(data.reverse())
 		}
 	}, [role_id, token, selectedBusiness, searchTerm])
 

@@ -38,19 +38,22 @@ export const Products: React.FC = (): React.ReactNode => {
 	const updateProductsFromCart = useCallback(
 		(fetchedProducts: Product[]) => {
 			if (!cart || cart.length === 0) return
-
-			const updatedProducts = fetchedProducts.map((product) => {
-				const cartItem = cart.find((item) => item.id === product.id)
-				if (cartItem) {
-					return {
-						...product,
-						stock: Math.max(0, product.stock - cartItem.quantity),
+			setProducts((prevProducts) => {
+				const updatedProducts = fetchedProducts.map((product) => {
+					const cartItem = cart.find((item) => item.id === product.id)
+					if (cartItem) {
+						return {
+							...product,
+							stock: Math.max(0, product.stock - cartItem.quantity),
+						}
 					}
+					return product
+				})
+				if (JSON.stringify(prevProducts) !== JSON.stringify(updatedProducts)) {
+					return updatedProducts
 				}
-				return product
+				return prevProducts
 			})
-
-			setProducts(updatedProducts)
 		},
 		[cart]
 	)
@@ -92,8 +95,11 @@ export const Products: React.FC = (): React.ReactNode => {
 		if (role_id === 1) {
 			navigate('/business')
 		}
+	}, [navigate, role_id])
+
+	useEffect(() => {
 		getProducts()
-	}, [getProducts, navigate, role_id])
+	}, [getProducts])
 
 	return (
 		<div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8 relative">

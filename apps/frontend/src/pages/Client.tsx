@@ -22,10 +22,10 @@ export const Client: React.FC = (): React.ReactNode => {
 	const { token, name, id } = useSelector((state: RootState) => state.session)
 
 	const onClick = async () => {
-		if (user.name.length < 3) {
+		if (user.name.length < 3 || user.name.length > 20) {
 			setAlert({
 				type: 2,
-				msg: 'Name too short. It must be at least 3 characters long.',
+				msg: 'Name must be between 8 and 20 characters.',
 				theme: 'bg-red-100 text-red-800',
 			})
 			return
@@ -160,6 +160,7 @@ export const Client: React.FC = (): React.ReactNode => {
 											Name
 											<input
 												onInput={onInput}
+                        maxLength={20}
 												value={user.name}
 												type="text"
 												className="w-full px-4 py-2 border rounded-md focus:ring-1 focus:ring-black"
