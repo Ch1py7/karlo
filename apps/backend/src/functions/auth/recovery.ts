@@ -7,7 +7,6 @@ interface recoverData {
 
 export const recovery = async (recoverData: recoverData) => {
 	try {
-    console.log(recoverData)
 		const user = await userClient.findOne({
 			where: { email: recoverData.email, password: recoverData.password },
 		})

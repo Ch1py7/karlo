@@ -27,7 +27,6 @@ export const ValidationCode: React.FC = (): React.ReactNode => {
 			})
 			return
 		}
-    console.log(validation.email)
 		try {
 			const { data, status } = isCodeRecovery
 				? await getRequest<string>(
@@ -44,6 +43,7 @@ export const ValidationCode: React.FC = (): React.ReactNode => {
 
 				if (isCodeRecovery) {
 					setCode(data.toString())
+					return
 				}
 				navigate('/auth/login')
 			}
@@ -107,9 +107,11 @@ export const ValidationCode: React.FC = (): React.ReactNode => {
 				</div>
 			)}
 			<div className="max-w-md w-full space-y-8 p-8 bg-white rounded-lg shadow-lg">
-				{code && <h3 className="flex items-center px-4 py-2 rounded-md bg-black text-white justify-center">
-					{code}
-				</h3>}
+				{code && (
+					<h3 className="flex items-center px-4 py-2 rounded-md bg-black text-white justify-center">
+						{code}
+					</h3>
+				)}
 				<div className="flex justify-center space-x-4 mb-8">
 					<button
 						type="button"
