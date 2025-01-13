@@ -94,8 +94,6 @@ export const PurchaseOrder: React.FC = (): React.ReactNode => {
 		}
 	}, [selectedBusiness])
 
-  console.log('hola')
-
 	return (
 		<>
 			{alert.type !== 0 && (
