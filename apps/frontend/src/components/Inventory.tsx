@@ -72,8 +72,11 @@ export const Inventory: React.FC = (): React.ReactNode => {
 		if (stock < 5 && stock >= 3) {
 			return 'bg-yellow-100 text-yellow-800'
 		}
-		if (stock < 3) {
+		if (stock < 3 && stock > 0) {
 			return 'bg-red-100 text-red-800'
+		}
+		if (stock === 0) {
+			return 'bg-purple-100 text-purple-800'
 		}
 	}
 
@@ -177,7 +180,7 @@ export const Inventory: React.FC = (): React.ReactNode => {
 						<tbody>
 							{products &&
 								products.map((product) => (
-									<tr key={product.id} className="border-b">
+									<tr key={product.id} className={`border-b ${product.stock === 0 ? 'bg-red-100' : ''}`}>
 										<td className="px-6 py-4">
 											<span>{product.id.split('-')[0]}</span>
 										</td>
