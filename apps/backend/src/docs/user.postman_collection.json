@@ -1,0 +1,165 @@
+{
+	"info": {
+		"_postman_id": "dca8aafc-c0c7-4acc-859e-cf280af79f70",
+		"name": "user",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29975390"
+	},
+	"item": [
+		{
+			"name": "get user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZjk4YWI1MS1iMDFkLTQ5ODYtYTU5Ny03OTk1YzU3ZTIwNjAiLCJyb2xlX2lkIjoxLCJpc192YWxpZGF0ZWQiOnRydWUsImlhdCI6MTczNjU4MTQyMCwiZXhwIjoxNzM5MTczNDIwfQ.TmKiGbN-cStiFKWGujPYr4GG67A5dpUtdmV8Eq_mVp8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://karlo.onrender.com/api/users",
+					"protocol": "https",
+					"host": [
+						"karlo",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "search",
+							"value": "fe095731-6c13-4b70-8cdd-9cb41fc5b065",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get new token",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYmNkMWQzMS1mMTk0LTQ2MjQtODY0OS1hMmFkODY3MTgyNWUiLCJyb2xlX2lkIjoxLCJpc192YWxpZGF0ZWQiOnRydWUsImlhdCI6MTczNjU5MjIyNCwiZXhwIjoxNzM5MTg0MjI0fQ.6wRCRMrqlNmNAcRWBzgvWJrHgzG3bPjHtQKi3U7zeTI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://karlo.onrender.com/api/users/token?id=e12dba3e-56da-4838-a6b9-85903eeaa198",
+					"protocol": "https",
+					"host": [
+						"karlo",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"users",
+						"token"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "e12dba3e-56da-4838-a6b9-85903eeaa198"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5MzA1Zjk1Ni03NDk5LTQ3MzEtYjEyZC03ZWU5MjczNzQ0ZmYiLCJyb2xlX2lkIjoxLCJpc192YWxpZGF0ZWQiOnRydWUsIm5hbWUiOiJwaWttaW4iLCJlbWFpbCI6ImFiY0BhYmMuYWJjIiwiaWF0IjoxNzM2Nzg2Mjk0LCJleHAiOjE3MzkzNzgyOTR9.tJx6YBn86oKnpOu8MHXxccKBpiinLx9sPgvjZzAnGaE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"e12dba3e-56da-4838-a6b9-85903eeaa198\",\n    \"name\": \"product 1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://karlo.onrender.com/api/users/update",
+					"protocol": "https",
+					"host": [
+						"karlo",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"users",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5MzA1Zjk1Ni03NDk5LTQ3MzEtYjEyZC03ZWU5MjczNzQ0ZmYiLCJyb2xlX2lkIjoxLCJpc192YWxpZGF0ZWQiOnRydWUsIm5hbWUiOiJwaWttaW4iLCJlbWFpbCI6ImFiY0BhYmMuYWJjIiwiaWF0IjoxNzM2Nzg2Mjk0LCJleHAiOjE3MzkzNzgyOTR9.tJx6YBn86oKnpOu8MHXxccKBpiinLx9sPgvjZzAnGaE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://karlo.onrender.com/api/users/delete?id=e12dba3e-56da-4838-a6b9-85903eeaa198",
+					"protocol": "https",
+					"host": [
+						"karlo",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"users",
+						"delete"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "e12dba3e-56da-4838-a6b9-85903eeaa198"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

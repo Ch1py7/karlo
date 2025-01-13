@@ -31,7 +31,7 @@ router.put(
 	}
 )
 
-router.get('/tax', authenticate, async (req: express.Request, res: express.Response) => {
+router.get('/tax', authenticate, async (_: express.Request, res: express.Response) => {
 	try {
 		const tax = await get()
 
