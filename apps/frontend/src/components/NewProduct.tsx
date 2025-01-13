@@ -55,27 +55,27 @@ export const NewProduct: React.FC<NewProductProps> = ({
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
-		if (product.name.length < 3) {
+		if (product.name.length < 3 || product.name.length > 20) {
 			setAlert({
 				type: 2,
-				msg: 'Name too short. It must be at least 3 characters long.',
+				msg: 'Name must be between 3 and 20 characters.',
 				theme: 'bg-red-100 text-red-800',
 			})
 			return
 		}
-		if (product.stock <= 0) {
+		if (product.stock <= 0 || product.stock > 500) {
 			setAlert({
 				type: 2,
-				msg: "Stock can't be 0 or less.",
+				msg: 'Stock must be between 3 and 500.',
 				theme: 'bg-red-100 text-red-800',
 			})
 			return
 		}
 
-		if (product.price <= 0) {
+		if (product.price <= 0 || product.price > 5000) {
 			setAlert({
 				type: 2,
-				msg: "Price can't be 0 or less.",
+				msg: 'Price must be between 3 and 5,000.',
 				theme: 'bg-red-100 text-red-800',
 			})
 			return
@@ -166,6 +166,7 @@ export const NewProduct: React.FC<NewProductProps> = ({
 							type="text"
 							name="name"
 							value={product.name}
+							maxLength={20}
 							onInput={onInput}
 							className="w-full px-3 py-2 border rounded-lg focus:ring-1 focus:ring-black"
 						/>
@@ -179,6 +180,7 @@ export const NewProduct: React.FC<NewProductProps> = ({
 									type="text"
 									name="price"
 									value={product.price}
+									maxLength={4}
 									onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
 										const target = e.currentTarget
 										target.value = target.value.replace(/[^0-9.]/g, '')
@@ -195,6 +197,7 @@ export const NewProduct: React.FC<NewProductProps> = ({
 									type="text"
 									name="stock"
 									value={product.stock}
+									max={3}
 									onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
 										const target = e.currentTarget
 										target.value = target.value.replace(/[^0-9]/g, '')

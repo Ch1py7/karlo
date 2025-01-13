@@ -31,17 +31,17 @@ export const Register: React.FC<Register> = ({ register, setRegister }): React.R
 			})
 			return
 		}
-		if (register.password.length < 8) {
+		if (register.password.length < 8 || register.password.length > 20) {
 			setError({
 				error: true,
-				msg: 'Password too short. It must be at least 8 characters long.',
+				msg: 'Password must be between 8 and 20 characters.',
 			})
 			return
 		}
-		if (register.name.length < 3) {
+		if (register.name.length < 3 || register.name.length > 20) {
 			setError({
 				error: true,
-				msg: 'Name too short. It must be at least 3 characters long.',
+				msg: 'Name must be between 8 and 20 characters.',
 			})
 			return
 		}
@@ -150,6 +150,7 @@ export const Register: React.FC<Register> = ({ register, setRegister }): React.R
 											type="text"
 											value={register.name}
 											required
+											maxLength={20}
 											onInput={onInput}
 											className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-black focus:border-black"
 										/>
@@ -165,6 +166,7 @@ export const Register: React.FC<Register> = ({ register, setRegister }): React.R
 										type="text"
 										value={register.name}
 										required
+										maxLength={20}
 										onInput={onInput}
 										className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-black focus:border-black"
 									/>
@@ -193,6 +195,7 @@ export const Register: React.FC<Register> = ({ register, setRegister }): React.R
 									type="password"
 									value={register.password}
 									required
+									maxLength={20}
 									onInput={onInput}
 									className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-black focus:border-black"
 								/>

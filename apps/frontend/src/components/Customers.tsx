@@ -46,8 +46,10 @@ export const Customers: React.FC = (): React.ReactNode => {
 				{users.map((customer) => (
 					<div key={customer.id} className="bg-white p-6 rounded-lg shadow-sm">
 						<div className="flex items-center space-x-4 mb-4">
-							<div>
-								<h3 className="font-medium">{customer.name}</h3>
+							<div className="truncate w-full">
+								<h3 className="font-medium text-ellipsis overflow-hidden whitespace-nowrap">
+									{customer.name}
+								</h3>
 							</div>
 						</div>
 						<div className="space-y-2">

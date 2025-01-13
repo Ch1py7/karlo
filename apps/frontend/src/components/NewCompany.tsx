@@ -46,10 +46,10 @@ export const NewCompany: React.FC<NewCompanyProps> = ({
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
-		if (business.name.length < 3) {
+		if (business.name.length < 3 || business.name.length > 20) {
 			setAlert({
 				type: 2,
-				msg: 'Name too short. It must be at least 3 characters long.',
+				msg: 'Name must be between 3 and 20 characters.',
 				theme: 'bg-red-100 text-red-800',
 			})
 			return
@@ -117,6 +117,7 @@ export const NewCompany: React.FC<NewCompanyProps> = ({
 						<input
 							type="text"
 							name="name"
+              maxLength={20}
 							value={business.name}
 							onInput={onInput}
 							className="w-full px-3 py-2 border rounded-lg focus:ring-1 focus:ring-black"

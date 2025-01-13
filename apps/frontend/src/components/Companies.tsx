@@ -77,8 +77,10 @@ export const Companies: React.FC = (): React.ReactNode => {
 						<div key={business.id} className="bg-white p-6 rounded-lg shadow-sm">
 							<div className="flex items-center space-x-4">
 								<Building />
-								<div>
-									<h3 className="font-medium">{business.name}</h3>
+								<div className="truncate w-full">
+									<h3 className="font-medium text-ellipsis overflow-hidden whitespace-nowrap">
+										{business.name}
+									</h3>
 								</div>
 							</div>
 						</div>
