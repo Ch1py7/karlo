@@ -1,0 +1,846 @@
+{
+	"info": {
+		"_postman_id": "142daaa9-6c61-461d-a4d4-8914282c8a83",
+		"name": "Karlo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29975390"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "login user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"abc@abc.abc\",\n    \"password\": \"juasjuas\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://karlo.onrender.com/api/auth/login",
+							"protocol": "https",
+							"host": [
+								"karlo",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"9305f956-7499-4731-b12d-7ee9273744ff\",\n  \"name\": \"pikmin\",\n  \"password\": \"juasjuas\",\n  \"email\": \"abc@abc.abc\",\n  \"role_id\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://karlo.onrender.com/api/auth/register",
+							"protocol": "https",
+							"host": [
+								"karlo",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "validate user",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"abc@abc.abc\",\n    \"validation_code\": \"397910\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://karlo.onrender.com/api/auth/validate",
+							"protocol": "https",
+							"host": [
+								"karlo",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"auth",
+								"validate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "recover token",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://karlo.onrender.com/api/auth/recover?email=el@enou.drai&password=draidrai",
+							"protocol": "https",
+							"host": [
+								"karlo",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"auth",
+								"recover"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "el@enou.drai"
+								},
+								{
+									"key": "password",
+									"value": "draidrai"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Business",
+			"item": [
+				{
+					"name": "create business",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5MzA1Zjk1Ni03NDk5LTQ3MzEtYjEyZC03ZWU5MjczNzQ0ZmYiLCJyb2xlX2lkIjoxLCJpc192YWxpZGF0ZWQiOnRydWUsIm5hbWUiOiJwaWttaW4iLCJlbWFpbCI6ImFiY0BhYmMuYWJjIiwiaWF0IjoxNzM2Nzg2Mjk0LCJleHAiOjE3MzkzNzgyOTR9.tJx6YBn86oKnpOu8MHXxccKBpiinLx9sPgvjZzAnGaE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"bc9a557f-fc00-4d3b-81bb-2ebbb317f944\",\n  \"name\": \"juasjuas\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://karlo.onrender.com/api/business/create",
+							"protocol": "https",
+							"host": [
+								"karlo",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"business",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get business",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYmNkMWQzMS1mMTk0LTQ2MjQtODY0OS1hMmFkODY3MTgyNWUiLCJyb2xlX2lkIjoxLCJpc192YWxpZGF0ZWQiOnRydWUsImlhdCI6MTczNjU5MjIyNCwiZXhwIjoxNzM5MTg0MjI0fQ.6wRCRMrqlNmNAcRWBzgvWJrHgzG3bPjHtQKi3U7zeTI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://karlo.onrender.com/api/business",
+							"protocol": "https",
+							"host": [
+								"karlo",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"business"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update business",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5MzA1Zjk1Ni03NDk5LTQ3MzEtYjEyZC03ZWU5MjczNzQ0ZmYiLCJyb2xlX2lkIjoxLCJpc192YWxpZGF0ZWQiOnRydWUsIm5hbWUiOiJwaWttaW4iLCJlbWFpbCI6ImFiY0BhYmMuYWJjIiwiaWF0IjoxNzM2Nzg2Mjk0LCJleHAiOjE3MzkzNzgyOTR9.tJx6YBn86oKnpOu8MHXxccKBpiinLx9sPgvjZzAnGaE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"jisajisa\",\n  \"id\": \"bc9a557f-fc00-4d3b-81bb-2ebbb317f944\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://karlo.onrender.com/api/business/update",
+							"protocol": "https",
+							"host": [
+								"karlo",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"business",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete business",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5MzA1Zjk1Ni03NDk5LTQ3MzEtYjEyZC03ZWU5MjczNzQ0ZmYiLCJyb2xlX2lkIjoxLCJpc192YWxpZGF0ZWQiOnRydWUsIm5hbWUiOiJwaWttaW4iLCJlbWFpbCI6ImFiY0BhYmMuYWJjIiwiaWF0IjoxNzM2Nzg2Mjk0LCJleHAiOjE3MzkzNzgyOTR9.tJx6YBn86oKnpOu8MHXxccKBpiinLx9sPgvjZzAnGaE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://karlo.onrender.com/api/business/delete?id=9305f956-7499-4731-b12d-7ee9273744ff",
+							"protocol": "https",
+							"host": [
+								"karlo",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"business",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "9305f956-7499-4731-b12d-7ee9273744ff"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "create product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYmNkMWQzMS1mMTk0LTQ2MjQtODY0OS1hMmFkODY3MTgyNWUiLCJyb2xlX2lkIjoxLCJpc192YWxpZGF0ZWQiOnRydWUsImlhdCI6MTczNjU5MjIyNCwiZXhwIjoxNzM5MTg0MjI0fQ.6wRCRMrqlNmNAcRWBzgvWJrHgzG3bPjHtQKi3U7zeTI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"f4057b99-2b37-43b6-8fc9-a698b1b2bcbc\",\n    \"business_id\": \"4beba650-fa12-4e1e-b585-d262be34c962\",\n    \"name\": \"dadadada\",\n    \"price\": \"11\",\n    \"stock\": \"552\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://karlo.onrender.com/api/products/create",
+							"protocol": "https",
+							"host": [
+								"karlo",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"products",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get products",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYmNkMWQzMS1mMTk0LTQ2MjQtODY0OS1hMmFkODY3MTgyNWUiLCJyb2xlX2lkIjoxLCJpc192YWxpZGF0ZWQiOnRydWUsImlhdCI6MTczNjU5MjIyNCwiZXhwIjoxNzM5MTg0MjI0fQ.6wRCRMrqlNmNAcRWBzgvWJrHgzG3bPjHtQKi3U7zeTI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://karlo.onrender.com/api/products?business_id=4beba650-fa12-4e1e-b585-d262be34c962&search",
+							"protocol": "https",
+							"host": [
+								"karlo",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"products"
+							],
+							"query": [
+								{
+									"key": "business_id",
+									"value": "4beba650-fa12-4e1e-b585-d262be34c962"
+								},
+								{
+									"key": "search",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5MzA1Zjk1Ni03NDk5LTQ3MzEtYjEyZC03ZWU5MjczNzQ0ZmYiLCJyb2xlX2lkIjoxLCJpc192YWxpZGF0ZWQiOnRydWUsIm5hbWUiOiJwaWttaW4iLCJlbWFpbCI6ImFiY0BhYmMuYWJjIiwiaWF0IjoxNzM2Nzg2Mjk0LCJleHAiOjE3MzkzNzgyOTR9.tJx6YBn86oKnpOu8MHXxccKBpiinLx9sPgvjZzAnGaE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"f0db23de-57eb-47e0-9d1f-49b1bcafba85\",\n    \"name\": \"product 1\",\n    \"business_id\": \"4beba650-fa12-4e1e-b585-d262be34c962\",\n    \"stock\": 3,\n    \"price\": \"15\",\n    \"is_deleted\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://karlo.onrender.com/api/products/update",
+							"protocol": "https",
+							"host": [
+								"karlo",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"products",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete products",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5MzA1Zjk1Ni03NDk5LTQ3MzEtYjEyZC03ZWU5MjczNzQ0ZmYiLCJyb2xlX2lkIjoxLCJpc192YWxpZGF0ZWQiOnRydWUsIm5hbWUiOiJwaWttaW4iLCJlbWFpbCI6ImFiY0BhYmMuYWJjIiwiaWF0IjoxNzM2Nzg2Mjk0LCJleHAiOjE3MzkzNzgyOTR9.tJx6YBn86oKnpOu8MHXxccKBpiinLx9sPgvjZzAnGaE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://karlo.onrender.com/api/products/delete?id=2bf84801-913e-4157-bdee-b77a45aa952b",
+							"protocol": "https",
+							"host": [
+								"karlo",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"products",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "2bf84801-913e-4157-bdee-b77a45aa952b"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Purchase Orders",
+			"item": [
+				{
+					"name": "create porder",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5MzA1Zjk1Ni03NDk5LTQ3MzEtYjEyZC03ZWU5MjczNzQ0ZmYiLCJyb2xlX2lkIjoxLCJpc192YWxpZGF0ZWQiOnRydWUsIm5hbWUiOiJwaWttaW4iLCJlbWFpbCI6ImFiY0BhYmMuYWJjIiwiaWF0IjoxNzM2Nzg2Mjk0LCJleHAiOjE3MzkzNzgyOTR9.tJx6YBn86oKnpOu8MHXxccKBpiinLx9sPgvjZzAnGaE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"d95c0838-1a75-4431-8208-bee0784ed7e5\",\n    \"business_id\": \"4beba650-fa12-4e1e-b585-d262be34c962\",\n    \"status\": 1,\n    \"subtotal\": 197,\n    \"total\": 228.52,\n    \"tax\": 0.16,\n    \"user_id\": \"82dac0a0-9fb3-4706-97aa-827029cbcde2\",\n    \"products\": \"[{\\\"id\\\":\\\"f0db23de-57eb-47e0-9d1f-49b1bcafba85\\\",\\\"name\\\":\\\"product 1\\\",\\\"price\\\":10,\\\"quantity\\\":3},{\\\"id\\\":\\\"2bf84801-913e-4157-bdee-b77a45aa952b\\\",\\\"name\\\":\\\"product 2\\\",\\\"price\\\":20,\\\"quantity\\\":5},{\\\"id\\\":\\\"74b68ea0-c1ab-45c7-86f8-b7bbff347ca9\\\",\\\"name\\\":\\\"product 3\\\",\\\"price\\\":15,\\\"quantity\\\":1},{\\\"id\\\":\\\"7bcad57a-9360-4eaf-92bb-b986ae75c0b8\\\",\\\"name\\\":\\\"product 4\\\",\\\"price\\\":52,\\\"quantity\\\":1}]\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://karlo.onrender.com/api/porder/create",
+							"protocol": "https",
+							"host": [
+								"karlo",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"porder",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get porder",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYmNkMWQzMS1mMTk0LTQ2MjQtODY0OS1hMmFkODY3MTgyNWUiLCJyb2xlX2lkIjoxLCJpc192YWxpZGF0ZWQiOnRydWUsImlhdCI6MTczNjU5MjIyNCwiZXhwIjoxNzM5MTg0MjI0fQ.6wRCRMrqlNmNAcRWBzgvWJrHgzG3bPjHtQKi3U7zeTI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://karlo.onrender.com/api/porder?id=82dac0a0-9fb3-4706-97aa-827029cbcde2&role_id=2&search",
+							"protocol": "https",
+							"host": [
+								"karlo",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"porder"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "82dac0a0-9fb3-4706-97aa-827029cbcde2"
+								},
+								{
+									"key": "role_id",
+									"value": "2"
+								},
+								{
+									"key": "search",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update porder",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5MzA1Zjk1Ni03NDk5LTQ3MzEtYjEyZC03ZWU5MjczNzQ0ZmYiLCJyb2xlX2lkIjoxLCJpc192YWxpZGF0ZWQiOnRydWUsIm5hbWUiOiJwaWttaW4iLCJlbWFpbCI6ImFiY0BhYmMuYWJjIiwiaWF0IjoxNzM2Nzg2Mjk0LCJleHAiOjE3MzkzNzgyOTR9.tJx6YBn86oKnpOu8MHXxccKBpiinLx9sPgvjZzAnGaE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"1ce108b7-91dd-4e47-bc01-34301731aa40\",\n  \"status\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://karlo.onrender.com/api/porder/update",
+							"protocol": "https",
+							"host": [
+								"karlo",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"porder",
+								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tax",
+			"item": [
+				{
+					"name": "get tax",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYmNkMWQzMS1mMTk0LTQ2MjQtODY0OS1hMmFkODY3MTgyNWUiLCJyb2xlX2lkIjoxLCJpc192YWxpZGF0ZWQiOnRydWUsImlhdCI6MTczNjU5MjIyNCwiZXhwIjoxNzM5MTg0MjI0fQ.6wRCRMrqlNmNAcRWBzgvWJrHgzG3bPjHtQKi3U7zeTI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://karlo.onrender.com/api/tax",
+							"protocol": "https",
+							"host": [
+								"karlo",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"tax"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update tax",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5MzA1Zjk1Ni03NDk5LTQ3MzEtYjEyZC03ZWU5MjczNzQ0ZmYiLCJyb2xlX2lkIjoxLCJpc192YWxpZGF0ZWQiOnRydWUsIm5hbWUiOiJwaWttaW4iLCJlbWFpbCI6ImFiY0BhYmMuYWJjIiwiaWF0IjoxNzM2Nzg2Mjk0LCJleHAiOjE3MzkzNzgyOTR9.tJx6YBn86oKnpOu8MHXxccKBpiinLx9sPgvjZzAnGaE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tax\": 16\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://karlo.onrender.com/api/tax/update",
+							"protocol": "https",
+							"host": [
+								"karlo",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"tax",
+								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "get user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZjk4YWI1MS1iMDFkLTQ5ODYtYTU5Ny03OTk1YzU3ZTIwNjAiLCJyb2xlX2lkIjoxLCJpc192YWxpZGF0ZWQiOnRydWUsImlhdCI6MTczNjU4MTQyMCwiZXhwIjoxNzM5MTczNDIwfQ.TmKiGbN-cStiFKWGujPYr4GG67A5dpUtdmV8Eq_mVp8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://karlo.onrender.com/api/users",
+							"protocol": "https",
+							"host": [
+								"karlo",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "fe095731-6c13-4b70-8cdd-9cb41fc5b065",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get new token",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmYmNkMWQzMS1mMTk0LTQ2MjQtODY0OS1hMmFkODY3MTgyNWUiLCJyb2xlX2lkIjoxLCJpc192YWxpZGF0ZWQiOnRydWUsImlhdCI6MTczNjU5MjIyNCwiZXhwIjoxNzM5MTg0MjI0fQ.6wRCRMrqlNmNAcRWBzgvWJrHgzG3bPjHtQKi3U7zeTI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://karlo.onrender.com/api/users/token?id=e12dba3e-56da-4838-a6b9-85903eeaa198",
+							"protocol": "https",
+							"host": [
+								"karlo",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"users",
+								"token"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "e12dba3e-56da-4838-a6b9-85903eeaa198"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5MzA1Zjk1Ni03NDk5LTQ3MzEtYjEyZC03ZWU5MjczNzQ0ZmYiLCJyb2xlX2lkIjoxLCJpc192YWxpZGF0ZWQiOnRydWUsIm5hbWUiOiJwaWttaW4iLCJlbWFpbCI6ImFiY0BhYmMuYWJjIiwiaWF0IjoxNzM2Nzg2Mjk0LCJleHAiOjE3MzkzNzgyOTR9.tJx6YBn86oKnpOu8MHXxccKBpiinLx9sPgvjZzAnGaE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"e12dba3e-56da-4838-a6b9-85903eeaa198\",\n    \"name\": \"product 1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://karlo.onrender.com/api/users/update",
+							"protocol": "https",
+							"host": [
+								"karlo",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"users",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5MzA1Zjk1Ni03NDk5LTQ3MzEtYjEyZC03ZWU5MjczNzQ0ZmYiLCJyb2xlX2lkIjoxLCJpc192YWxpZGF0ZWQiOnRydWUsIm5hbWUiOiJwaWttaW4iLCJlbWFpbCI6ImFiY0BhYmMuYWJjIiwiaWF0IjoxNzM2Nzg2Mjk0LCJleHAiOjE3MzkzNzgyOTR9.tJx6YBn86oKnpOu8MHXxccKBpiinLx9sPgvjZzAnGaE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://karlo.onrender.com/api/users/delete?id=e12dba3e-56da-4838-a6b9-85903eeaa198",
+							"protocol": "https",
+							"host": [
+								"karlo",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"users",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "e12dba3e-56da-4838-a6b9-85903eeaa198"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
