@@ -3,7 +3,7 @@ import { POrderService } from '@/services/porder'
 import { getRequest, putRequest } from '@/services/requests'
 import type { RootState } from '@/store/store'
 import { AxiosError } from 'axios'
-import { Trash2, X } from 'lucide-react'
+import { HandCoins, Trash2, X } from 'lucide-react'
 import { useCallback, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Modal } from './Modal'
@@ -20,7 +20,8 @@ interface CustomerOrders {
 
 export const CustomerOrders: React.FC<CustomerOrders> = ({ setAlert }): React.ReactNode => {
 	const [orders, setOrders] = useState<POrder[] | null>(null)
-	const [orderToCancel, setOrderToCancel] = useState('')
+	const [orderToUpdate, setOrderToUpdate] = useState('')
+	const [isCancel, setIsCancel] = useState(false)
 	const { token, id, role_id } = useSelector((state: RootState) => state.session)
 
 	const getOrders = useCallback(async () => {
@@ -34,19 +35,19 @@ export const CustomerOrders: React.FC<CustomerOrders> = ({ setAlert }): React.Re
 		}
 	}, [id, role_id, token])
 
-	const cancelOrder = useCallback(async () => {
+	const updateOrder = useCallback(async () => {
 		try {
 			const { status } = await putRequest(
 				POrderService.updatePOrder(),
-				{ id: orderToCancel, status: 4 },
+				{ id: orderToUpdate, status: isCancel ? 4 : 2 },
 				token
 			)
 			if (status === 200) {
 				getOrders()
-				setOrderToCancel('')
+				setOrderToUpdate('')
 				setAlert({
 					type: 1,
-					msg: 'Order canceled successfully',
+					msg: isCancel ? 'Order canceled successfully' : 'Order paid successfully',
 					theme: 'bg-green-100 text-green-800',
 				})
 			}
@@ -73,18 +74,18 @@ export const CustomerOrders: React.FC<CustomerOrders> = ({ setAlert }): React.Re
 				})
 			}, 3000)
 		}
-	}, [token, getOrders, orderToCancel, setAlert])
+	}, [token, getOrders, orderToUpdate, setAlert, isCancel])
 
 	useEffect(() => {
 		getOrders()
 	}, [getOrders])
 	return (
 		<>
-			{orderToCancel && (
+			{orderToUpdate && (
 				<Modal>
 					<div className="flex justify-between items-center mb-4">
 						<h2 className="text-xl font-semibold">Cancel confirmation</h2>
-						<button type="button" onClick={() => setOrderToCancel('')}>
+						<button type="button" onClick={() => setOrderToUpdate('')}>
 							<X className="h-6 w-6 text-red-500 hover:text-red-700" />
 						</button>
 					</div>
@@ -93,7 +94,7 @@ export const CustomerOrders: React.FC<CustomerOrders> = ({ setAlert }): React.Re
 					</div>
 					<div className="flex justify-evenly mt-6">
 						<button
-							onClick={() => setOrderToCancel('')}
+							onClick={() => setOrderToUpdate('')}
 							type="button"
 							className="px-4 py-2 border rounded-lg hover:bg-gray-50"
 						>
@@ -101,7 +102,7 @@ export const CustomerOrders: React.FC<CustomerOrders> = ({ setAlert }): React.Re
 						</button>
 						<button
 							type="button"
-							onClick={() => cancelOrder()}
+							onClick={() => updateOrder()}
 							className="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800"
 						>
 							I'm sure
@@ -127,13 +128,33 @@ export const CustomerOrders: React.FC<CustomerOrders> = ({ setAlert }): React.Re
 										</span>
 										<button
 											type="button"
-											onClick={() => setOrderToCancel(order.id)}
-											disabled={order.status === 4 || order.status === 3 || order.status === 2}
-											className={`p-1 hover:bg-gray-100 rounded ${
+											title="Pay"
+											onClick={() => {
+												setIsCancel(false)
+												setOrderToUpdate(order.id)
+											}}
+											className={`${
 												order.status === 4 || order.status === 3 || order.status === 2
-													? 'text-gray-500'
-													: 'text-red-500'
-											} `}
+													? 'bg-gray-400'
+													: 'bg-green-400 hover:bg-green-700'
+											} px-4 py-2 text-white rounded-lg`}
+											disabled={order.status === 4 || order.status === 3 || order.status === 2}
+										>
+											<HandCoins className="h-4 w-4" />
+										</button>
+										<button
+											type="button"
+											title="Cancel"
+											onClick={() => {
+												setIsCancel(true)
+												setOrderToUpdate(order.id)
+											}}
+											disabled={order.status === 4 || order.status === 3 || order.status === 2}
+											className={`${
+												order.status === 4 || order.status === 3 || order.status === 2
+													? 'bg-gray-400'
+													: 'bg-red-400 hover:bg-red-700'
+											} px-4 py-2 text-white rounded-lg`}
 										>
 											<Trash2 className="h-4 w-4" />
 										</button>

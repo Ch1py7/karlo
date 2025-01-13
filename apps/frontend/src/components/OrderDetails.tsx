@@ -202,24 +202,6 @@ export const OrderDetails: React.FC<OrderDetailsProps> = ({
 							>
 								Return Order
 							</button>
-							<button
-								type="button"
-								onClick={() => updateOrderStatus(2)}
-								className={`${
-									selectedOrder.status === 4 ||
-									selectedOrder.status === 3 ||
-									selectedOrder.status === 2
-										? 'bg-gray-400'
-										: 'bg-black hover:bg-gray-800'
-								} px-4 py-2 text-white rounded-lg`}
-								disabled={
-									selectedOrder.status === 4 ||
-									selectedOrder.status === 3 ||
-									selectedOrder.status === 2
-								}
-							>
-								Mark as Paid
-							</button>
 						</div>
 					</div>
 				</div>
