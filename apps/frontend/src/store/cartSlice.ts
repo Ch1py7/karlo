@@ -63,7 +63,7 @@ const cartSlice = createSlice({
 		addProduct: (state, action: PayloadAction<Cart>) => {
 			const product = action.payload
 			const oldCart = getCart()
-			const existingProduct = oldCart.find((item) => item.id === product.id)
+			const existingProduct = oldCart.length > 0 ? oldCart.find((item) => item.id === product.id) : false
 
 			if (existingProduct) {
 				const productToAdd = oldCart.map((p) => {
