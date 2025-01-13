@@ -4,10 +4,9 @@ import { userClient } from '@/postgres/models/users'
 export const update = async ({
 	id,
 	name,
-	role_id,
-}: Pick<UserAttributes, 'id' | 'name' | 'role_id'>) => {
+}: Pick<UserAttributes, 'id' | 'name'>) => {
 	try {
-		await userClient.update({ name, role_id }, { where: { id } })
+		await userClient.update({ name }, { where: { id } })
 	} catch (e) {
 		throw new Error((e as Error).message)
 	}

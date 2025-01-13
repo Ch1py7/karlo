@@ -11,7 +11,7 @@ const router = express.Router()
 router.get(
 	'/porder',
 	query('search'),
-	body('user_id')
+	query('id')
 		.notEmpty()
 		.withMessage("id can't be empty")
 		.bail()
@@ -21,12 +21,23 @@ router.get(
 		.isUUID(4)
 		.withMessage('id should be a valid uuid')
 		.bail(),
+	query('role_id')
+		.notEmpty()
+		.withMessage("role can't be empty")
+		.bail()
+		.isIn([1, 2])
+		.withMessage('role must be 1 (business) or 2 (client)')
+		.bail(),
 	authenticate,
 	async (req: express.Request, res: express.Response) => {
 		try {
-			const { search } = req.query as { search: string }
-			const { user_id } = req.body
-			const porder = await get({ user_id, search })
+			const { search, id, role_id } = req.query as {
+				search: string
+				id: string
+				role_id: string
+			}
+
+			const porder = await get({ id, search, role_id: Number(role_id) })
 
 			res.status(200).send(porder)
 		} catch (e) {
@@ -83,10 +94,10 @@ router.put(
 			.bail(),
 		body('status')
 			.notEmpty()
-			.withMessage("role can't be empty")
+			.withMessage("status can't be empty")
 			.bail()
-			.isIn([1, 2, 3, 4, 5, 7, 8])
-			.withMessage('role must be between 1 and 8')
+			.isIn([1, 2, 3, 4])
+			.withMessage('status must be between 1 and 8')
 			.bail(),
 	],
 	authenticate,
@@ -145,10 +156,10 @@ router.post(
 			.bail(),
 		body('status')
 			.notEmpty()
-			.withMessage("role can't be empty")
+			.withMessage("status can't be empty")
 			.bail()
-			.isIn([1, 2, 3, 4, 5, 7, 8])
-			.withMessage('role must be between 1 and 8')
+			.isIn([1, 2, 3, 4])
+			.withMessage('status must be between 1 and 8')
 			.bail(),
 		body('total')
 			.notEmpty()

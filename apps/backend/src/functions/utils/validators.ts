@@ -1,5 +1,5 @@
-import { verifyJwt } from '../service/jwt'
 import type express from 'express'
+import { verifyJwt } from '../service/jwt'
 
 export const validateEmail = (email: string) => {
 	const regex =
@@ -10,11 +10,28 @@ export const validateEmail = (email: string) => {
 	return !regex.test(email)
 }
 
-export const isTokenValid = (exp: number) => {
-  return Date.now() > exp * 1000
+export const validateStatus = (status: string) => {
+	const keywordMapping: Record<string, number> = {
+		pending: 1,
+		paid: 2,
+		returned: 3,
+		cancelled: 4,
+	}
+
+	return Object.entries(keywordMapping).find(([keyword]) =>
+		keyword.includes(status.toLowerCase())
+	)?.[1]
 }
 
-export const authenticate = (req: express.Request, res: express.Response, next: express.NextFunction) => {
+export const isTokenValid = (exp: number) => {
+	return Date.now() > exp * 1000
+}
+
+export const authenticate = (
+	req: express.Request,
+	res: express.Response,
+	next: express.NextFunction
+) => {
 	const token = req.headers.authorization?.split(' ')[1] ?? ''
 	try {
 		const payload = verifyJwt<{ sub: number; exp: number; role_id: 1 | 2; is_validated: boolean }>(

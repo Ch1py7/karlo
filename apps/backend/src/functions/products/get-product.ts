@@ -24,7 +24,6 @@ export const get = async ({ business_id, search }: Product) => {
 				...whereClause,
 				[Op.and]: [
 					{ is_deleted: false },
-					{ stock: { [Op.gt]: 0 } },
 					{ business_id: { [Op.eq]: business_id } },
 				],
 			},

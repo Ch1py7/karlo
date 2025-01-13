@@ -11,7 +11,6 @@ const router = express.Router()
 router.get(
 	'/business',
 	query('search'),
-	authenticate,
 	async (req: express.Request, res: express.Response) => {
 		try {
 			const { search } = req.query

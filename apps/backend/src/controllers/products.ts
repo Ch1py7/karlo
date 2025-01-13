@@ -11,17 +11,16 @@ const router = express.Router()
 router.get(
 	'/products',
 	query('search'),
-	body('business_id')
-		.notEmpty()
-		.withMessage("business id can't be empty")
-		.bail()
-		.isString()
-		.withMessage('business id should be a string')
-		.bail()
-		.isUUID(4)
-		.withMessage('business id should be a valid uuid')
-		.bail(),
-	authenticate,
+	query('business_id')
+  .notEmpty()
+  .withMessage("business id can't be empty")
+  .bail()
+  .isString()
+  .withMessage('business id should be a string')
+  .bail()
+  .isUUID(4)
+  .withMessage('business id should be a valid uuid')
+  .bail(),
 	async (req: express.Request, res: express.Response) => {
 		try {
 			const errors = validationResult(req)
@@ -31,8 +30,7 @@ router.get(
 				return res.status(400).json(error)
 			}
 
-			const { search } = req.query as { search: string }
-			const { business_id } = req.body
+			const { search, business_id } = req.query as { search: string, business_id: string }
 			const product = await get({ business_id, search })
 
 			res.status(200).send(product)

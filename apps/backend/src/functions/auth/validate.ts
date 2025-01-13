@@ -2,13 +2,13 @@ import { userClient } from '@/postgres/models/users'
 
 interface validateUser {
 	email: string
-	code: string
+	validation_code: string
 }
 
 export const validate = async (validation: validateUser) => {
 	try {
 		const user = await userClient.findOne({
-			where: { email: validation.email, validation_code: validation.code },
+			where: { email: validation.email, validation_code: validation.validation_code },
 		})
 
 		if (!user) {

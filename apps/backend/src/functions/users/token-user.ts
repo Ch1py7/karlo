@@ -1,26 +1,21 @@
 import { userClient } from '@/postgres/models/users'
 import { signJwt } from '../service/jwt'
 
-interface User {
-	email: string
-	password: string
-}
-
-export const login = async (userKeys: User) => {
+export const token = async (userId: string) => {
 	try {
 		const user = await userClient.findOne({
-			where: { email: userKeys.email, password: userKeys.password },
+			where: { id: userId },
 		})
 
 		if (!user) {
-			throw new Error('Email or password is incorrect')
+			throw new Error('Something went wrong...')
 		}
 
 		const { id, role_id, email, name, is_validated } = user
 
-    if (!is_validated) {
-      throw new Error('Please validate your account before logging in')
-    }
+		if (!is_validated) {
+			throw new Error('Please validate your account before logging in')
+		}
 
 		const token = signJwt({ sub: id, role_id, is_validated, name, email })
 		return { token }

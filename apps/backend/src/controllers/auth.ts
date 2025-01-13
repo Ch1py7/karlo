@@ -1,9 +1,10 @@
 import { login } from '@/functions/auth/login'
+import { recovery } from '@/functions/auth/recovery'
 import { validate } from '@/functions/auth/validate'
 import { create } from '@/functions/users/create-user'
 import { validateEmail } from '@/functions/utils/validators'
 import express from 'express'
-import { body, validationResult } from 'express-validator'
+import { body, query, validationResult } from 'express-validator'
 
 const router = express.Router()
 
@@ -16,6 +17,9 @@ router.post(
 			.bail()
 			.isString()
 			.withMessage('name should be a string')
+			.bail()
+			.isLength({ min: 3 })
+			.withMessage('name should be at least 3 characters long')
 			.bail(),
 		body('password')
 			.notEmpty()
@@ -121,7 +125,7 @@ router.post(
 router.put(
 	'/auth/validate',
 	[
-		body('code')
+		body('validation_code')
 			.notEmpty()
 			.withMessage("code can't be empty")
 			.bail()
@@ -148,12 +152,54 @@ router.put(
 			return res.status(400).json(error)
 		}
 
-		const { email, code } = req.body
+		const { email, validation_code } = req.body
 
 		try {
-			await validate({ email, code })
+			await validate({ email, validation_code })
 
 			res.status(200).send('User validated')
+		} catch (e) {
+			res.status(400).send([(e as Error).message])
+		}
+	}
+)
+
+router.get(
+	'/auth/recover',
+	[
+		query('password')
+			.notEmpty()
+			.withMessage("password can't be empty")
+			.bail()
+			.isString()
+			.withMessage('password should be a string')
+			.bail(),
+		query('email')
+			.notEmpty()
+			.withMessage("email can't be empty")
+			.bail()
+			.isString()
+			.withMessage('email should be a string')
+			.bail()
+			.custom(async (value) => {
+				if (validateEmail(value)) throw new Error('incorrect email')
+			})
+			.bail(),
+	],
+	async (req: express.Request, res: express.Response) => {
+		const errors = validationResult(req)
+
+		if (!errors.isEmpty()) {
+			const error = errors.array().map((e) => e.msg)
+			return res.status(400).json(error)
+		}
+
+		const { email, password } = req.query as { email: string; password: string }
+
+		try {
+			const code = await recovery({ email, password })
+
+			res.status(200).send(code)
 		} catch (e) {
 			res.status(400).send([(e as Error).message])
 		}

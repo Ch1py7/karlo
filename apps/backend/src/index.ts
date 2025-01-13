@@ -13,6 +13,7 @@ const main = async () => {
   const { router: business } = await import('@/controllers/business')
   const { router: products } = await import('@/controllers/products')
   const { router: porder } = await import('@/controllers/porder')
+  const { router: tax } = await import('@/controllers/tax')
 
 	const port = process.env.PORT || 8000
 	const app = express()
@@ -35,6 +36,7 @@ const main = async () => {
       app.use('/api', business)
       app.use('/api', products)
       app.use('/api', porder)
+      app.use('/api', tax)
     })
     .catch((e) => {
       console.error('Unable to connect to the database:', e)

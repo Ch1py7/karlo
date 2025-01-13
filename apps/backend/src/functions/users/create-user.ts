@@ -5,6 +5,7 @@ import crypto from 'node:crypto'
 export const create = async (userProps: UserAttributes) => {
 	try {
 		userProps.is_deleted = false
+		userProps.is_validated = false
 		const validation_code = crypto.randomBytes(3).toString('hex')
 		const user = await userClient.create({ ...userProps, validation_code })
 
