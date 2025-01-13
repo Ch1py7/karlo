@@ -21,7 +21,10 @@ export const Products: React.FC = (): React.ReactNode => {
 
 	const disabledProduct = (product: Product) => {
 		if (!cart) return
-		return cart && cart.some((cartProduct) => cartProduct.id === product.id && cartProduct.quantity === 0)
+		return (
+			cart &&
+			cart.some((cartProduct) => cartProduct.id === product.id && cartProduct.quantity === 0)
+		)
 	}
 
 	const updateProductStock = (productId: string) => {
@@ -146,15 +149,19 @@ export const Products: React.FC = (): React.ReactNode => {
 									type="button"
 									disabled={disabledProduct(product) || product.stock === 0}
 									onClick={() => {
-										dispatch(
-											addProduct({
-												id: product.id,
-												name: product.name,
-												price: product.price,
-												quantity: 1,
-											})
-										)
-										updateProductStock(product.id)
+										if (token === 'undefined' || token === null || token === '') {
+											navigate('/auth/login')
+										} else {
+											dispatch(
+												addProduct({
+													id: product.id,
+													name: product.name,
+													price: product.price,
+													quantity: 1,
+												})
+											)
+											updateProductStock(product.id)
+										}
 									}}
 									className={`mt-2 w-full ${disabledProduct(product) || product.stock === 0 ? 'bg-gray-400' : 'bg-black hover:bg-gray-800'} bg-black text-white px-4 py-2 rounded-md `}
 								>
