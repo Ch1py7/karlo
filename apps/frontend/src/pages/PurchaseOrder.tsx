@@ -3,26 +3,34 @@ import { Business } from '@/context/business.context'
 import { POrderService } from '@/services/porder'
 import { getRequest, postRequest } from '@/services/requests'
 import { TaxService } from '@/services/tax'
-import { addProduct, cleanCart, manageTotals, removeProduct, restProduct } from '@/store/cartSlice'
+import { cleanCart, manageTotals, removeProduct } from '@/store/cartSlice'
 import type { RootState } from '@/store/store'
 import { AxiosError } from 'axios'
-import { AlertCircle, Check, Minus, Plus, ShoppingBag, Trash2, X } from 'lucide-react'
+import { AlertCircle, Check, ShoppingBag, Trash2, X } from 'lucide-react'
 import { useCallback, useContext, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 export const PurchaseOrder: React.FC = (): React.ReactNode => {
 	const dispatch = useDispatch()
 	const [tax, setTax] = useState(0)
-	const [pOrder, setPOrder] = useState<POrder | null>()
 	const totals = useSelector((state: RootState) => state.cart.totals)
+	const subtotal = totals.totalOrder
+	const total = totals.totalOrder + totals.totalOrder * tax
 	const cart = useSelector((state: RootState) => state.cart.cart)
 	const { token, id } = useSelector((state: RootState) => state.session)
+	const [pOrder, setPOrder] = useState<POrder>({
+		status: 1,
+		subtotal: Number(subtotal.toFixed(2)),
+		total: Number(total.toFixed(2)),
+		products: JSON.stringify(cart),
+		tax: tax,
+		user_id: id,
+		business_id: '',
+		id: '',
+	})
 	const { selectedBusiness } = useContext(Business.Context)
 	const [alert, setAlert] = useState({ type: 0, theme: '', msg: '' })
 	const [orderToSend, setOrderToSend] = useState(false)
-
-	const subtotal = totals.totalOrder
-	const total = totals.totalOrder + totals.totalOrder * tax
 
 	const getTax = useCallback(async () => {
 		if (!token) return
@@ -69,8 +77,8 @@ export const PurchaseOrder: React.FC = (): React.ReactNode => {
 	}, [pOrder, token, dispatch])
 
 	useEffect(() => {
-		getTax()
-	}, [getTax])
+		if (token) getTax()
+	}, [token, getTax])
 
 	useEffect(() => {
 		dispatch(manageTotals(cart))
@@ -78,18 +86,15 @@ export const PurchaseOrder: React.FC = (): React.ReactNode => {
 
 	useEffect(() => {
 		if (selectedBusiness?.id) {
-			setPOrder({
+			setPOrder((prev) => ({
+				...prev,
 				id: crypto.randomUUID().toString(),
 				business_id: selectedBusiness!.id,
-				status: 1,
-				subtotal: Number(subtotal.toFixed(2)),
-				total: Number(total.toFixed(2)),
-				tax: tax,
-				user_id: id,
-				products: JSON.stringify(cart),
-			})
+			}))
 		}
-	}, [id, selectedBusiness, tax, cart, subtotal.toFixed, total.toFixed])
+	}, [selectedBusiness])
+
+  console.log('hola')
 
 	return (
 		<>
@@ -161,39 +166,6 @@ export const PurchaseOrder: React.FC = (): React.ReactNode => {
 												})}
 											</p>
 											<span className="font-medium">{item.quantity} pcs</span>
-											<button
-												onClick={() =>
-													dispatch(
-														addProduct({
-															id: item.id,
-															name: item.name,
-															price: item.price,
-															quantity: 1,
-														})
-													)
-												}
-												type="button"
-												className="p-1 hover:bg-gray-100 rounded text-black"
-											>
-												<Plus className="h-5 w-5" />
-											</button>
-											<button
-												onClick={() =>
-													dispatch(
-														restProduct({
-															id: item.id,
-															name: item.name,
-															price: item.price,
-															quantity: 1,
-														})
-													)
-												}
-												disabled={item.quantity === 1}
-												type="button"
-												className={`p-1 hover:bg-gray-100 rounded ${item.quantity === 1 ? 'text-gray-400' : 'text-black'}`}
-											>
-												<Minus className="h-5 w-5" />
-											</button>
 											<button
 												onClick={() => dispatch(removeProduct(item.name))}
 												type="button"

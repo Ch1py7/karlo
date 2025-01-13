@@ -37,23 +37,17 @@ export const Products: React.FC = (): React.ReactNode => {
 
 	const updateProductsFromCart = useCallback(
 		(fetchedProducts: Product[]) => {
-			if (!cart || cart.length === 0) return
-			setProducts((prevProducts) => {
-				const updatedProducts = fetchedProducts.map((product) => {
-					const cartItem = cart.find((item) => item.id === product.id)
-					if (cartItem) {
-						return {
-							...product,
-							stock: Math.max(0, product.stock - cartItem.quantity),
-						}
+			const updatedProducts = fetchedProducts.map((product) => {
+				const cartItem = cart.find((item) => item.id === product.id)
+				if (cartItem) {
+					return {
+						...product,
+						stock: product.stock - cartItem.quantity,
 					}
-					return product
-				})
-				if (JSON.stringify(prevProducts) !== JSON.stringify(updatedProducts)) {
-					return updatedProducts
 				}
-				return prevProducts
+				return product
 			})
+			setProducts(updatedProducts)
 		},
 		[cart]
 	)

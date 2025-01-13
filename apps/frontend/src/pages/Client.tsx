@@ -39,14 +39,15 @@ export const Client: React.FC = (): React.ReactNode => {
 					msg: 'User edited successfully',
 					theme: 'bg-green-100 text-green-800',
 				})
-        if (!session || session.id === '') return
-					const { data, status } = await getRequest<{ token: string }>(
-						UsersService.getToken(session.id),
-						token
-					)
-					if (status === 200) {
-						dispatch(setToken(data.token))
-					}
+				if (!session || session.id === '') return
+				setEditName(false)
+				const { data, status } = await getRequest<{ token: string }>(
+					UsersService.getToken(session.id),
+					token
+				)
+				if (status === 200) {
+					dispatch(setToken(data.token))
+				}
 			}
 		} catch (e) {
 			if (e instanceof AxiosError) {
@@ -92,13 +93,13 @@ export const Client: React.FC = (): React.ReactNode => {
 			{editName && (
 				<Modal>
 					<div className="flex justify-between items-center mb-4">
-						<h2 className="text-xl font-semibold">Cancel confirmation</h2>
+						<h2 className="text-xl font-semibold">Edit confirmation</h2>
 						<button type="button" onClick={() => setEditName(false)}>
 							<X className="h-6 w-6 text-red-500 hover:text-red-700" />
 						</button>
 					</div>
 					<div>
-						<p className="text-lg">Are you sure you want to edit this your name?</p>
+						<p className="text-lg">Are you sure you want to edit your name?</p>
 					</div>
 					<div className="flex justify-evenly mt-6">
 						<button
@@ -160,7 +161,7 @@ export const Client: React.FC = (): React.ReactNode => {
 											Name
 											<input
 												onInput={onInput}
-                        maxLength={20}
+												maxLength={20}
 												value={user.name}
 												type="text"
 												className="w-full px-4 py-2 border rounded-md focus:ring-1 focus:ring-black"
