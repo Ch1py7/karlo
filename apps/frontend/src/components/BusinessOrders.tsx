@@ -74,7 +74,7 @@ export const BusinessOrders: React.FC = (): React.ReactNode => {
 										<td className="px-6 py-4 font-medium">${order.total.toFixed(2)}</td>
 										<td className="px-6 py-4">
 											<span
-												className={`px-2 py-1 flex justify-center ${getStatus(order.status)?.theme} rounded-full text-sm`}
+												className={`px-2 py-1 ${getStatus(order.status)?.theme} rounded-full text-sm`}
 											>
 												{getStatus(order.status)?.text}
 											</span>
@@ -88,7 +88,7 @@ export const BusinessOrders: React.FC = (): React.ReactNode => {
 													})
 												}
 												type="button"
-												className="text-blue-600 hover:text-blue-800"
+												className="flex items-center space-x-2 bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800"
 											>
 												View Details
 											</button>
