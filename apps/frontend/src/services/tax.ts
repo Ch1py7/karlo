@@ -1,8 +1,8 @@
 export namespace TaxService {
 	export const getTax = () => {
-		return 'http://localhost:473/api/tax'
+		return 'https://karlo.onrender.com/api/tax'
 	}
 	export const updateTax = () => {
-		return 'http://localhost:473/api/tax/update'
+		return 'https://karlo.onrender.com/api/tax/update'
 	}
 }
