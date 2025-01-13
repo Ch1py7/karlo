@@ -48,14 +48,12 @@ export const authenticate = (allowedRoles?: number[]) => {
 					.json({ errors: ['Please validate your account before performing this action'] })
 			}
 
-			// Verificar si el role_id está permitido
 			if (allowedRoles && !allowedRoles.includes(payload.role_id)) {
 				return res
 					.status(403)
 					.json({ errors: ['You do not have permission to access this resource'] })
 			}
 
-			// Adjuntar el payload al objeto `req` si es necesario
 			req.user = payload
 
 			next()
