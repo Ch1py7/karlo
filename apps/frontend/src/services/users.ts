@@ -19,7 +19,11 @@ export namespace UsersService {
 		return 'http://localhost:473/api/auth/validate'
 	}
 
-	export const getToken = ({ email, password }: { email: string; password: string }) => {
-		return `http://localhost:473/api/auth/recover?password=${password}&email=${email}`
+	export const getToken = (id: string) => {
+		return `http://localhost:473/api/users/token${id ? `?id=${id}` : ''}`
 	}
+
+  export const getCode = ({ email, password }: { email: string; password: string }) => {
+			return `http://localhost:473/api/auth/recover?password=${password}&email=${email}`
+		}
 }

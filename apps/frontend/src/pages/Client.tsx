@@ -39,7 +39,7 @@ export const Client: React.FC = (): React.ReactNode => {
 					msg: 'User edited successfully',
 					theme: 'bg-green-100 text-green-800',
 				})
-				if (session) {
+        if (!session || session.id === '') return
 					const { data, status } = await getRequest<{ token: string }>(
 						UsersService.getToken(session.id),
 						token
@@ -47,7 +47,6 @@ export const Client: React.FC = (): React.ReactNode => {
 					if (status === 200) {
 						dispatch(setToken(data.token))
 					}
-				}
 			}
 		} catch (e) {
 			if (e instanceof AxiosError) {

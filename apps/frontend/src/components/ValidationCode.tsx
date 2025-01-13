@@ -31,7 +31,7 @@ export const ValidationCode: React.FC = (): React.ReactNode => {
 		try {
 			const { data, status } = isCodeRecovery
 				? await getRequest<string>(
-						UsersService.getToken({ email: validation.email, password: validation.password! })
+						UsersService.getCode({ email: validation.email, password: validation.password! })
 					)
 				: await putRequest<GetRegister>(UsersService.validateUser(), validation)
 			if (status === 200) {
