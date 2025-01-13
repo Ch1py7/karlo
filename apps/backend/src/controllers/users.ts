@@ -11,7 +11,7 @@ const router = express.Router()
 router.get(
 	'/users',
 	query('search'),
-	authenticate,
+	authenticate([1, 2]),
 	async (req: express.Request, res: express.Response) => {
 		try {
 			const { search } = req.query
@@ -36,7 +36,7 @@ router.get(
 		.isUUID(4)
 		.withMessage('id should be a valid uuid')
 		.bail(),
-	authenticate,
+	authenticate([2]),
 	async (req: express.Request, res: express.Response) => {
 		try {
 			const { id } = req.query
@@ -61,7 +61,7 @@ router.delete(
 		.isUUID(4)
 		.withMessage('id should be a valid uuid')
 		.bail(),
-	authenticate,
+	authenticate([1, 2]),
 	async (req: express.Request, res: express.Response) => {
 		try {
 			const errors = validationResult(req)
@@ -106,7 +106,7 @@ router.put(
 			.withMessage('name should be at least 3 characters long')
 			.bail(),
 	],
-	authenticate,
+	authenticate([2]),
 	async (req: express.Request, res: express.Response) => {
 		const errors = validationResult(req)
 

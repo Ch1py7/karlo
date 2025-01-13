@@ -11,7 +11,6 @@ interface BusinessContextState {
 	selectedBusiness: Business | null
 	setSelectedBusiness: React.Dispatch<React.SetStateAction<Business | null>>
 	reqBusiness: () => Promise<void>
-	loading: boolean
 }
 
 interface BusinessProviderProps {
@@ -27,7 +26,6 @@ const Context = createContext<BusinessContextState>({
 	selectedBusiness: null,
 	setSelectedBusiness: () => {},
 	reqBusiness: async () => {},
-	loading: false,
 })
 
 const Provider: React.FC<BusinessProviderProps> = ({ children }) => {
@@ -35,7 +33,6 @@ const Provider: React.FC<BusinessProviderProps> = ({ children }) => {
 	const [searchTerm, setSearchTerm] = useState('')
 	const [selectedBusiness, setSelectedBusiness] = useState<Business | null>(null)
 	const [businesses, setBusinesses] = useState<Business[]>([])
-	const [loading, setLoading] = useState(false)
 
 	const reqBusiness = useCallback(async () => {
 		const { data, status } = await getRequest<Business[]>(
@@ -56,13 +53,6 @@ const Provider: React.FC<BusinessProviderProps> = ({ children }) => {
 	}, [businesses])
 
 	useEffect(() => {
-		if (selectedBusiness) {
-			setLoading(true)
-			setTimeout(() => setLoading(false), 100)
-		}
-	}, [selectedBusiness])
-
-	useEffect(() => {
 		reqBusiness()
 	}, [reqBusiness])
 
@@ -76,8 +66,7 @@ const Provider: React.FC<BusinessProviderProps> = ({ children }) => {
 				setSearchTerm,
 				selectedBusiness,
 				setSelectedBusiness,
-				reqBusiness,
-				loading,
+				reqBusiness
 			}}
 		>
 			{children}

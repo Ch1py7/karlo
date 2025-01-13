@@ -35,7 +35,7 @@ router.delete(
 		.isUUID(4)
 		.withMessage('id should be a valid uuid')
 		.bail(),
-	authenticate,
+	authenticate([1]),
 	async (req: express.Request, res: express.Response) => {
 		try {
 			const errors = validationResult(req)
@@ -77,7 +77,7 @@ router.put(
 			.withMessage('name should be a string')
 			.bail(),
 	],
-	authenticate,
+	authenticate([1]),
 	async (req: express.Request, res: express.Response) => {
 		const errors = validationResult(req)
 
@@ -119,7 +119,7 @@ router.post(
 			.withMessage('id should be a valid uuid')
 			.bail(),
 	],
-	authenticate,
+	authenticate([1]),
 	async (req: express.Request, res: express.Response) => {
 		const errors = validationResult(req)
 

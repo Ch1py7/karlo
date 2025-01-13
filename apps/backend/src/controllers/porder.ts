@@ -1,5 +1,4 @@
 import { create } from '@/functions/porder/create-porder'
-import { cancel } from '@/functions/porder/delete-porder'
 import { get } from '@/functions/porder/get-porder'
 import { update } from '@/functions/porder/update-porder'
 import { authenticate } from '@/functions/utils/validators'
@@ -28,7 +27,7 @@ router.get(
 		.isIn([1, 2])
 		.withMessage('role must be 1 (business) or 2 (client)')
 		.bail(),
-	authenticate,
+	authenticate([1, 2]),
 	async (req: express.Request, res: express.Response) => {
 		try {
 			const { search, id, role_id } = req.query as {
@@ -40,39 +39,6 @@ router.get(
 			const porder = await get({ id, search, role_id: Number(role_id) })
 
 			res.status(200).send(porder)
-		} catch (e) {
-			res.status(400).send([(e as Error).message])
-		}
-	}
-)
-
-router.delete(
-	'/porder/delete',
-	query('id')
-		.notEmpty()
-		.withMessage("id can't be empty")
-		.bail()
-		.isString()
-		.withMessage('id should be a string')
-		.bail()
-		.isUUID(4)
-		.withMessage('id should be a valid uuid')
-		.bail(),
-	authenticate,
-	async (req: express.Request, res: express.Response) => {
-		try {
-			const errors = validationResult(req)
-
-			if (!errors.isEmpty()) {
-				const error = errors.array().map((e) => e.msg)
-				return res.status(400).json(error)
-			}
-
-			const { id } = req.query
-
-			await cancel(id as string)
-
-			res.status(200).send()
 		} catch (e) {
 			res.status(400).send([(e as Error).message])
 		}
@@ -100,7 +66,7 @@ router.put(
 			.withMessage('status must be between 1 and 8')
 			.bail(),
 	],
-	authenticate,
+	authenticate([1, 2]),
 	async (req: express.Request, res: express.Response) => {
 		const errors = validationResult(req)
 
@@ -190,7 +156,7 @@ router.post(
 			.withMessage('products should be a string')
 			.bail(),
 	],
-	authenticate,
+	authenticate([2]),
 	async (req: express.Request, res: express.Response) => {
 		const errors = validationResult(req)
 

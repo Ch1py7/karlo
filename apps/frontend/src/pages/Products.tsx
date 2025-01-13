@@ -13,7 +13,7 @@ export const Products: React.FC = (): React.ReactNode => {
 	const navigate = useNavigate()
 	const [searchTerm, setSearchTerm] = useState('')
 	const [products, setProducts] = useState<Product[]>([])
-	const { loading, selectedBusiness } = useContext(Business.Context)
+	const { selectedBusiness } = useContext(Business.Context)
 	const [tax, setTax] = useState(0)
 	const dispatch = useDispatch()
 	const { token, role_id } = useSelector((state: RootState) => state.session)
@@ -62,7 +62,7 @@ export const Products: React.FC = (): React.ReactNode => {
 	}, [token])
 
 	const getProducts = useCallback(async () => {
-		if (!selectedBusiness || selectedBusiness.id === '' || loading) return
+		if (!selectedBusiness || selectedBusiness.id === '') return
 		const { data, status } = await getRequest<Product[]>(
 			ProductsService.getProducts(selectedBusiness.id, searchTerm)
 		)
@@ -71,7 +71,7 @@ export const Products: React.FC = (): React.ReactNode => {
 			setProducts(data)
 			updateProductsFromCart(data)
 		}
-	}, [searchTerm, selectedBusiness, loading, updateProductsFromCart])
+	}, [searchTerm, selectedBusiness, updateProductsFromCart])
 
 	const onInput = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { value } = e.target
@@ -117,61 +117,55 @@ export const Products: React.FC = (): React.ReactNode => {
 					<p className="text-gray-600">It looks like we have nothing for now.</p>
 				</div>
 			)}
-			{loading ? (
-				<div className="text-center mt-12">
-					<p>Loading products...</p>
-				</div>
-			) : (
-				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-					{products.map((product) => (
-						<div key={product.id} className="group relative">
-							<div className="aspect-w-3 aspect-h-4 overflow-hidden rounded-lg">
-								<img
-									src="/No_image_available.png"
-									alt={product.name}
-									className="h-[400px] w-full object-cover object-center group-hover:opacity-75"
-								/>
-							</div>
-							<div className="mt-4">
-								<div className="flex justify-between">
-									<div>
-										<h3 className="text-lg font-medium">{product.name}</h3>
-										<p className="text-gray-600">
-											$
-											{(product.price + product.price * tax).toLocaleString('en-US', {
-												minimumFractionDigits: 2,
-											})}
-										</p>
-									</div>
-									<h3 className="text-lg font-medium">{product.stock} pcs</h3>
-								</div>
-								<button
-									type="button"
-									disabled={disabledProduct(product) || product.stock === 0}
-									onClick={() => {
-										if (token === 'undefined' || token === null || token === '') {
-											navigate('/auth/login')
-										} else {
-											dispatch(
-												addProduct({
-													id: product.id,
-													name: product.name,
-													price: product.price,
-													quantity: 1,
-												})
-											)
-											updateProductStock(product.id)
-										}
-									}}
-									className={`mt-2 w-full ${disabledProduct(product) || product.stock === 0 ? 'bg-gray-400' : 'bg-black hover:bg-gray-800'} bg-black text-white px-4 py-2 rounded-md `}
-								>
-									Add to Cart
-								</button>
-							</div>
+			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+				{products.map((product) => (
+					<div key={product.id} className="group relative">
+						<div className="aspect-w-3 aspect-h-4 overflow-hidden rounded-lg">
+							<img
+								src="/No_image_available.png"
+								alt={product.name}
+								className="h-[400px] w-full object-cover object-center group-hover:opacity-75"
+							/>
 						</div>
-					))}
-				</div>
-			)}
+						<div className="mt-4">
+							<div className="flex justify-between">
+								<div>
+									<h3 className="text-lg font-medium">{product.name}</h3>
+									<p className="text-gray-600">
+										$
+										{(product.price + product.price * tax).toLocaleString('en-US', {
+											minimumFractionDigits: 2,
+										})}
+									</p>
+								</div>
+								<h3 className="text-lg font-medium">{product.stock} pcs</h3>
+							</div>
+							<button
+								type="button"
+								disabled={disabledProduct(product) || product.stock === 0}
+								onClick={() => {
+									if (token === 'undefined' || token === null || token === '') {
+										navigate('/auth/login')
+									} else {
+										dispatch(
+											addProduct({
+												id: product.id,
+												name: product.name,
+												price: product.price,
+												quantity: 1,
+											})
+										)
+										updateProductStock(product.id)
+									}
+								}}
+								className={`mt-2 w-full ${disabledProduct(product) || product.stock === 0 ? 'bg-gray-400' : 'bg-black hover:bg-gray-800'} bg-black text-white px-4 py-2 rounded-md `}
+							>
+								Add to Cart
+							</button>
+						</div>
+					</div>
+				))}
+			</div>
 		</div>
 	)
 }

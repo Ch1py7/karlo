@@ -52,7 +52,7 @@ router.delete(
 		.isUUID(4)
 		.withMessage('id should be a valid uuid')
 		.bail(),
-	authenticate,
+	authenticate([1]),
 	async (req: express.Request, res: express.Response) => {
 		try {
 			const errors = validationResult(req)
@@ -114,7 +114,7 @@ router.put(
 			.withMessage('stock should be a positive integer and greater than 0')
 			.bail(),
 	],
-	authenticate,
+	authenticate([1]),
 	async (req: express.Request, res: express.Response) => {
 		const errors = validationResult(req)
 
@@ -186,7 +186,7 @@ router.post(
 			.withMessage('business id should be a valid uuid')
 			.bail(),
 	],
-	authenticate,
+	authenticate([1]),
 	async (req: express.Request, res: express.Response) => {
 		const errors = validationResult(req)
 

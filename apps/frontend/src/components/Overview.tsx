@@ -13,16 +13,16 @@ export const Overview: React.FC = (): React.ReactNode => {
 	const [products, setProducts] = useState<Product[]>([])
 	const [orders, setOrders] = useState<POrder[]>([])
 	const [users, setUsers] = useState<User[]>([])
-	const { loading, selectedBusiness } = useContext(Business.Context)
+	const { selectedBusiness } = useContext(Business.Context)
 	const { token, role_id } = useSelector((state: RootState) => state.session)
 	const getProducts = useCallback(async () => {
-		if (loading || !selectedBusiness || selectedBusiness.id === '') return
+		if (!selectedBusiness || selectedBusiness.id === '') return
 		const { data, status } = await getRequest<Product[]>(
 			ProductsService.getProducts(selectedBusiness.id)
 		)
 
 		if (status === 200) setProducts(data)
-	}, [loading, selectedBusiness])
+	}, [selectedBusiness])
 
 	const getOrders = useCallback(async () => {
 		if (!role_id || !selectedBusiness || selectedBusiness.id === '') return

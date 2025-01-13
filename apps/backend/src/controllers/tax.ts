@@ -18,7 +18,7 @@ router.put(
 		.isInt({ min: 0, max: 100 })
 		.withMessage('tax should be a positive integer, and less than 100')
 		.bail(),
-	authenticate,
+	authenticate([1]),
 	async (req: express.Request, res: express.Response) => {
 		try {
 			const { tax } = req.body

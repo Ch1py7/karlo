@@ -27,27 +27,41 @@ export const isTokenValid = (exp: number) => {
 	return Date.now() > exp * 1000
 }
 
-export const authenticate = (
-	req: express.Request,
-	res: express.Response,
-	next: express.NextFunction
-) => {
-	const token = req.headers.authorization?.split(' ')[1] ?? ''
-	try {
-		const payload = verifyJwt<{ sub: number; exp: number; role_id: 1 | 2; is_validated: boolean }>(
-			token
-		)
-		if (Date.now() > payload.exp * 1000) {
-			return res.status(401).json({ errors: ['token expired'] })
-		}
-		if (!payload.is_validated) {
-			return res
-				.status(401)
-				.json({ errors: ['Please validate your account before performing this action'] })
-		}
+export const authenticate = (allowedRoles?: number[]) => {
+	return (req: express.Request, res: express.Response, next: express.NextFunction) => {
+		const token = req.headers.authorization?.split(' ')[1] ?? ''
+		try {
+			const payload = verifyJwt<{
+				sub: number
+				exp: number
+				role_id: 1 | 2
+				is_validated: boolean
+			}>(token)
 
-		next()
-	} catch (e) {
-		res.status(400).json({ errors: [(e as Error).message] })
+			if (Date.now() > payload.exp * 1000) {
+				return res.status(401).json({ errors: ['token expired'] })
+			}
+
+			if (!payload.is_validated) {
+				return res
+					.status(401)
+					.json({ errors: ['Please validate your account before performing this action'] })
+			}
+
+			// Verificar si el role_id está permitido
+			if (allowedRoles && !allowedRoles.includes(payload.role_id)) {
+				return res
+					.status(403)
+					.json({ errors: ['You do not have permission to access this resource'] })
+			}
+
+			// Adjuntar el payload al objeto `req` si es necesario
+			req.user = payload
+
+			next()
+		} catch (e) {
+			res.status(400).json({ errors: [(e as Error).message] })
+		}
 	}
 }
+

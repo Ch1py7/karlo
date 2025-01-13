@@ -16,17 +16,16 @@ export const Inventory: React.FC = (): React.ReactNode => {
 	const [productToEdit, setProductToEdit] = useState<Product | null>(null)
 	const [searchTerm, setSearchTerm] = useState('')
 	const [alert, setAlert] = useState({ type: 0, theme: '', msg: '' })
-	const { loading, selectedBusiness } = useContext(Business.Context)
+	const { selectedBusiness } = useContext(Business.Context)
 	const { token } = useSelector((state: RootState) => state.session)
 
 	const getProducts = useCallback(async () => {
-		if (loading) return
 		const { data, status } = await getRequest<Product[]>(
 			ProductsService.getProducts(selectedBusiness!.id, searchTerm)
 		)
 
 		if (status === 200) setProducts(data)
-	}, [loading, searchTerm, selectedBusiness])
+	}, [searchTerm, selectedBusiness])
 
 	const deleteItem = useCallback(async () => {
 		try {
@@ -176,14 +175,7 @@ export const Inventory: React.FC = (): React.ReactNode => {
 							</tr>
 						</thead>
 						<tbody>
-							{loading ? (
-								<tr className="border-b">
-									<td className="text-center mt-12">
-										<p>Loading products...</p>
-									</td>
-								</tr>
-							) : (
-								products &&
+							{products &&
 								products.map((product) => (
 									<tr key={product.id} className="border-b">
 										<td className="px-6 py-4">
@@ -223,8 +215,7 @@ export const Inventory: React.FC = (): React.ReactNode => {
 											</div>
 										</td>
 									</tr>
-								))
-							)}
+								))}
 						</tbody>
 					</table>
 				</div>
